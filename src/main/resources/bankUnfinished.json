@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a swagger file for generating the APIs that handles deposit and withdraw transactions of a bank.",
+    "version": "1.0.0",
+    "title": "Swagger Bank",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/transaction",
+  "tags": [
+    {
+      "name": "withdraw",
+      "description": "Withdraw transaction"
+    },
+    {
+      "name": "deposit",
+      "description": "Deposit transaction"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/withdraw": {
+      "post": {
+        "tags": [
+          "withdraw"
+        ],
+        "summary": "Transaction to withdraw money from an account.",
+        "description": "",
+        "operationId": "withdraw",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Withdraw transaction object.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawRequest"
+            }
+          },
+          {
+            "in": "header",
+            "name": "api_key",
+            "description": "Transaction api key.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/WithdrawResponse"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/deposit": {
+      "post": {
+        "tags": [
+          "deposit"
+        ],
+        "summary": "Transaction to deposit money in an account.",
+        "description": "",
+        "operationId": "deposit",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Deposit transaction object.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DepositRequest"
+            }
+          },
+          {
+            "in": "header",
+            "name": "api_key",
+            "description": "Transaction api key.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/DepositResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "WithdrawRequest": {
+      "type": "object",
+      "properties": {
+        "fan": {
+          "type": "integer",
+          "format": "int64",
+          "example": 12345678
+        },
+        "transactionAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 34.78
+        }
+      }
+    },
+    "WithdrawResponse": {
+      "type": "object",
+      "properties": {
+        "totalAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 125.99
+        }
+      }
+    },
+    "DepositRequest": {
+      "type": "object",
+      "properties": {
+        "fan": {
+          "type": "integer",
+          "format": "int64",
+          "example": 12345678
+        },
+        "transactionAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 34.78
+        }
+      }
+    },
+    "DepositResponse": {
+      "type": "object",
+      "properties": {
+        "totalAmount": {
+          "type": "number",
+          "format": "double",
+          "example": 125.99
+        }
+      }
+    }
+  }
+}
